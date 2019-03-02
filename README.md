@@ -6,7 +6,6 @@ IdexedDB was used to save users budgeting work into their browser, so they can c
 
 Charts.js was used to create the pie chart representing the total budget. 
 
-Everthing else is pure javascript and css. 
 
 
 
