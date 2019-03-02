@@ -1,0 +1,984 @@
+<!doctype html>
+
+<html>
+
+<head>
+<title>Dollar a Day Tool</title>
+<style type="text/css">
+
+.webApp .columnLeft {
+	width: 100%;
+}
+.webApp .columnRight {
+	width: 100%;
+}
+.webApp #graph{
+	position:relative;
+	height:30%;
+	width:70%;
+	margin:auto;
+}
+.webApp #list{
+	font: 13px Arial, Helvetica, sans-serif;
+}
+
+.webApp .listItem{
+	border: 2px solid #17202A;
+    border-radius: 5px;
+	/*margin-left:2%;
+	margin-right:2%;
+	padding-left:10px;
+	padding-right:10px;*/
+	margin-top:10px;
+	margin-bottom:10px;
+	position: relative;
+	padding-top: 5px;
+	font: 20px Arial, Helvetica, sans-serif;
+}
+/* Clear floats after the columns */
+.webApp .listItem:after {
+    content: "";
+    display: table;
+    clear: both;
+} 
+.webApp .title{
+	font-size:40px;
+	padding-bottom:0px;
+}
+.webApp .rate{
+	font-size:20px;
+	padding-top:0px;
+}
+.webApp .quantity{
+	font-size:20px;
+}
+.webApp .cost{
+	padding-top:20px;
+}
+
+.webApp .foodEnter{
+	border: 2px solid #17202A;
+    border-radius: 5px;
+	/*margin-left:2%;
+	margin-right:2%;*/
+	font: 13px Arial, Helvetica, sans-serif;
+}
+
+.webApp .column {
+    float: left;
+    width: 29%;
+    padding: 15px;
+	padding-left:2%;
+	position:relative;
+}
+.webApp .columnB{
+	float: left;
+    width: 15%;
+    padding: 15px;
+	padding-left:2%;
+}
+
+/* Clear floats after the columns */
+.webApp:after {
+    content: "";
+    display: table;
+    clear: both;
+} 
+
+/* Clear floats after the columns */
+.webApp .foodEnter:after {
+    content: "";
+    display: table;
+    clear: both;
+} 
+
+
+/* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+@media screen and (max-width:350px) {
+    .webApp .column {
+        width: 100%;
+    }
+	.webApp .columnB{
+		width: 100%;
+	}
+	.webApp .columnLeft {
+        width: 100%;
+    }
+	.webApp .columnRight {
+        width: 100%;
+    }
+}
+.webApp .input-field:focus{
+	border: 1px solid #0C0;
+}
+.webApp .foodEnterTitle{
+    width: 100px;
+    font-weight: bold;
+    float: left;
+    padding-top: 5px;
+}
+.webApp label{
+	display:block;
+}
+.webApp .input-field{
+	width: 50%;
+	box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    border: 1px solid #C2C2C2;
+    box-shadow: 1px 1px 4px #EBEBEB;
+    -moz-box-shadow: 1px 1px 4px #EBEBEB;
+    -webkit-box-shadow: 1px 1px 4px #EBEBEB;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    padding: 7px;
+    outline: none;
+}
+.webApp .enterTitle{
+	/*padding-left:2%;*/
+	font-size:20px;
+    font-weight: bold;
+	
+}
+.webApp #saveFood{
+	display:block;
+	margin-right:50px;
+}
+
+.webApp .slidecontainer {
+    width: 96%;/* Width of the outside container */
+	margin:auto;
+	margin-bottom:5px;
+		
+}
+
+.webApp #currentUnit{
+	width:35%;
+}
+
+.webApp #foodQuantity{
+	width:40%;
+}
+
+
+.webApp .myButton {
+	background-color:#4D3129;
+	-moz-border-radius:28px;
+	-webkit-border-radius:28px;
+	border-radius:28px;
+	border:1px solid #18ab29;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:17px;
+	padding:5px 15px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #2f6627;
+	margin-top:5px;
+}
+.webApp .myButton:hover {
+	background-color:#476D47;
+}
+.webApp .myButton:active {
+	position:relative;
+	top:1px;
+}
+
+input[type=range] {
+  -webkit-appearance: none;
+  width: 100%;
+  margin: 13.8px 0;
+}
+input[type=range]:focus {
+  outline: none;
+}
+input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 8.4px;
+  cursor: pointer;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  background: #4D3129;
+  border-radius: 1.3px;
+  border: 0.2px solid #010101;
+}
+input[type=range]::-webkit-slider-thumb {
+  box-shadow: 1px 1px 1px #7c47b1, 0px 0px 1px #8956bb;
+  border: 0px solid rgba(0, 0, 0, 0.44);
+  height: 36px;
+  width: 16px;
+  border-radius: 3px;
+  background: #476D47;
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: -14px;
+}
+
+input[type=range]::-moz-range-track {
+  width: 100%;
+  height: 8.4px;
+  cursor: pointer;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  background: #3071a9;
+  border-radius: 1.3px;
+  border: 0.2px solid #010101;
+}
+input[type=range]::-moz-range-thumb {
+  box-shadow: 1px 1px 1px #7c47b1, 0px 0px 1px #8956bb;
+  border: 0px solid rgba(0, 0, 0, 0.44);
+  height: 36px;
+  width: 16px;
+  border-radius: 3px;
+  background: #ffffff;
+  cursor: pointer;
+}
+input[type=range]::-ms-track {
+  width: 100%;
+  height: 8.4px;
+  cursor: pointer;
+  background: transparent;
+  border-color: transparent;
+  color: transparent;
+}
+
+input[type=range]::-ms-thumb {
+  box-shadow: 1px 1px 1px #7c47b1, 0px 0px 1px #8956bb;
+  border: 0px solid rgba(0, 0, 0, 0.44);
+  height: 15px;
+  width: 16px;
+  border-radius: 3px;
+  background: #ffffff;
+  cursor: pointer;
+  height: 8.4px;
+}
+
+
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+</head>
+<body>
+
+<div class="webApp">
+
+
+
+
+<div id="graph">
+<canvas id="myChart"></canvas>
+</div>
+
+
+<div id="list">
+<!--
+<div class="listItem">
+	
+	<div class="column">
+		<label class="title">Apples<br></label>
+		<label class="rate">$1 per Unit</label>
+	</div>
+  
+	<div class="column">
+		<label class="quantity">Quantity: 10lb</label>
+		<label class="cost" id="demo2">Cost: $20</label>
+	</div>
+	<div class="column">
+		<button>Edit</button><br><br>
+		<button>Delete</button>
+		
+	</div>
+	<div class="slidecontainer">
+		<input type="range" min="0" max="100" value="25" class="slider" id="myRange">
+	</div>
+</div>-->
+</div>
+
+<div class="foodEnter">
+	
+	<div class="column">
+	<p class="enterTitle">Enter New Food</p>
+    <label for="foodTitle"><span class="foodEnterTitle">Food Title</span><input type="text" id="foodTitle"class="input-field"></label><br>
+	<label for="desiredUnit"><span class="foodEnterTitle">Desired Unit
+	</span><select id="desiredUnit" class="input-field"> 
+	<option value="unit">Unit</option>
+	<option value="kg">kg</option>
+	<option value="g">g</option>
+	<option value="L">L</option>
+	<option value="ml">ml</option>
+	<option value="lb">lb</option>
+	<option value="oz">oz</option></select></label>
+  </div>
+  
+  <div class="column">
+	<p class="enterTitle"> &nbsp </p>
+    <label for="foodPrice"><span class="foodEnterTitle">Food Price $</span>
+	<input type="number" id="foodPrice"class="input-field"></label></br>
+	<label for="foodQuantity">per&nbsp
+	<input type="number" id="foodQuantity"class="input-field"><select id="currentUnit" class="input-field"> 
+	<option value="unit">Unit</option>
+	<option value="kg">kg</option>
+	<option value="g">g</option>
+	<option value="L">L</option>
+	<option value="ml">ml</option>
+	<option value="lb">lb</option>
+	<option value="oz">oz</option></select></label></br>
+	
+	</div>
+	
+	<div class="columnB">
+		<p class="enterTitle"> &nbsp </p>
+		<button id="saveFood" class="myButton" onclick="saveFood()"> Save Food </button>
+	</div>
+	
+</div><br>
+
+
+</div>
+
+<script>
+//PolyFills (For Multi-Browser Use)
+if (!String.prototype.includes) {
+  String.prototype.includes = function(search, start) {
+    'use strict';
+    if (typeof start !== 'number') {
+      start = 0;
+    }
+    
+    if (start + search.length > this.length) {
+      return false;
+    } else {
+      return this.indexOf(search, start) !== -1;
+    }
+  };
+}
+
+//Grab divList for attaching to 
+var divList = document.getElementById("list");
+//Set initial Slider Limit value
+var SLIDE_MAX= 700;
+var sliderLimit = SLIDE_MAX;
+//Edit Check for check or Save (Intinally Saved)
+var editCheck = 0;
+var editId = 0;
+var previousSlider = 0;
+
+//food Object
+var food = [];
+
+//chartVariables
+var chartLabels = [];
+var chartColors = [];
+var chartData = [];
+var c = 0;
+
+var colorsList = ['rgb(77, 49, 41)','rgb(73, 82, 113)','rgb(71, 109, 71)'];
+
+var ctx = document.getElementById('myChart').getContext('2d');
+var chart = new Chart(ctx,{});
+
+//Slider Variables
+var lastFoodId = 0;
+
+//Indexed DB Variables
+var indexSave = 0;
+
+
+createDB();
+
+function createDB(){
+	//Indexed DB-------------------------------
+	// This works on all devices/browsers, and uses IndexedDBShim as a final fallback 
+	var indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB || window.shimIndexedDB;
+
+	// Open (or create) the database
+	var open = indexedDB.open("MyDatabase", 1);
+
+	// Create the schema
+	open.onupgradeneeded = function() {
+		var db = open.result;
+		var store = db.createObjectStore("MyObjectStore", {keyPath: "id"});
+	};
+
+	open.onsuccess = function(){
+		//Start a new transaction
+		var db = open.result;
+		var tx = db.transaction("MyObjectStore","readwrite");
+		var store = tx.objectStore("MyObjectStore");
+		
+		if (indexSave==1){
+			var deleteAll = store.clear();
+			for(i=0;i<food.length+1;i++){
+				
+				store.put(food[i]);
+			}
+		}else{
+			//var deleteAll = store.clear();
+			var getAll = store.getAll();
+			
+			//getJohn.onsuccess = function(){
+				//console.log(getJohn.result.age);
+			//}
+			
+			getAll.onsuccess = function(){
+				if(getAll.result.length<=0){
+					console.log("Update in Progress");
+					//Dummy data which will be tacken from the data base
+					food = [{
+						id:0,
+						title:"Red lentils",
+						price:0.72, 
+						currentUnit:"lb",
+						desiredUnit:"lb",
+						slider:116,
+						quantity:1,
+						rate:.72
+					},{
+						id:1,
+						title:"Oats",
+						price:.64, 
+						currentUnit:"lb",
+						desiredUnit:"lb",
+						slider:189,
+						quantity:1,
+						rate:.64
+					},{
+						id:2,
+						title:"Tea",
+						price:.02, 
+						currentUnit:"unit",
+						desiredUnit:"unit",
+						slider:14,
+						quantity:1,
+						rate: .02
+					}];
+						if(indexSave==0){
+							initialSetUp();
+							initialLoad();
+						}
+						
+					
+				}else{
+					food = getAll.result;
+					if(indexSave==0){
+						initialSetUp();
+						initialLoad();
+					}
+					
+					console.log(getAll.result[0]);
+				}
+				
+			}	
+		}
+		tx.oncomplete = function(){
+			db.close();
+		}
+	}
+}
+
+function initialSetUp(){
+	updateSlider(food[0].slider);//Needs to happen before chart is created
+	//Create Chart
+	k = 1;
+	for(i=0;i<food.length;i++){
+		chartLabels.push(food[i].title);
+		chartColors.push(colorsList[i-c]);
+		chartData.push(food[i].slider/100);
+		
+		if(i==k*colorsList.length-1){
+			c = k*colorsList.length;
+			k = k + 1;
+		}
+	}
+	//chartLabels.push("Remaining");
+	chartColors.push('rgb(255,255,255)');
+	chartData.push(sliderLimit/100);
+
+
+	chart = new Chart(ctx, {
+		// The type of chart we want to create
+		type: 'pie',
+
+		// The data for our dataset
+		data: {
+			labels: chartLabels,
+			datasets: [{
+				backgroundColor: chartColors,
+				borderColor: 'rgb(255,255,255)',
+				data: chartData,
+			}
+			]
+		}
+	});
+
+	//Edit Check for check or Save (Intinally Saved)
+	lastFoodId = food.length -1;
+}
+
+
+function updateSlider(mFood){
+	sliderLimit = SLIDE_MAX;
+	for (i=0;i<food.length;i++){
+		sliderLimit = sliderLimit - food[i].slider;
+	}
+	if(sliderLimit<0){
+		mFood.slider = mFood.slider + sliderLimit;
+		sliderLimit=0;
+	}
+}
+
+function round(num, scale) {
+  if(!("" + num).includes("e")) {
+    return +(Math.round(num + "e+" + scale)  + "e-" + scale);
+  } else {
+    var arr = ("" + num).split("e");
+    var sig = ""
+    if(+arr[1] + scale > 0) {
+      sig = "+";
+    }
+    return +(Math.round(+arr[0] + "e" + sig + (+arr[1] + scale)) + "e-" + scale);
+  }
+} 
+
+function initialLoad(){
+	//Update Slider Limit
+	if(food.length<1){
+		sliderLimit = SLIDE_MAX;
+	}else{
+		updateSlider(food[0].slider);
+	}
+	//Load food to screen
+	for (i=0;i<food.length;i++){
+		foodLoader(food[i]);
+	}	
+}
+
+function saveFood(){
+	//Validate Form
+	var validation = validate(document.getElementById("foodTitle"),document.getElementById("foodPrice"),document.getElementById("foodQuantity"),document.getElementById("desiredUnit"),document.getElementById("currentUnit"));
+	
+	if(!validation){
+		return;
+	}
+	
+	
+	//Grab values from input
+	var titleInput = document.getElementById("foodTitle").value;
+	var priceInput = document.getElementById("foodPrice").value;
+	var desiredUnitInput = document.getElementById("desiredUnit").value;
+	var currentUnitInput = document.getElementById("currentUnit").value;
+	var quantityInput = document.getElementById("foodQuantity").value;
+	
+	
+	
+	var raterOutput = rater(desiredUnitInput,currentUnitInput,priceInput,quantityInput);
+	
+	var rateInput = raterOutput[0];
+	desiredUnitInput = raterOutput[1];
+	
+	if(editCheck == 0){//SAVING
+		//Update the ID
+		lastFoodId = lastFoodId + 1;
+		var idInput = lastFoodId;
+		//Create new Food Object
+		var foodObject = {
+			id: idInput,
+			title:titleInput,
+			price:priceInput, 
+			currentUnit:currentUnitInput,
+			desiredUnit:desiredUnitInput,
+			slider:0,
+			quantity:quantityInput,
+			rate:rateInput	
+		}
+		food.push(foodObject);
+		
+		//Update Screen
+		foodLoader(foodObject);
+		
+	}else{//EDITING
+		food[editId].title = titleInput;
+		food[editId].price = priceInput;
+		food[editId].currentUnit = currentUnitInput;
+		food[editId].desiredUnit = desiredUnitInput;
+		food[editId].slider = previousSlider;
+		food[editId].quantity = quantityInput;
+		food[editId].rate = rateInput;
+		//Clear and Reload List
+		while (divList.firstChild) {
+			divList.removeChild(divList.firstChild);
+		}
+		initialLoad();
+		editCheck = 0;
+	}
+	
+	//Empty Views
+	document.getElementById("foodTitle").value = null;
+	document.getElementById("foodPrice").value = null;
+	document.getElementById("foodQuantity").value = null;
+	document.getElementById("currentUnit").value = "unit";
+	document.getElementById("desiredUnit").value = "unit";
+	var foodEnterTitle = document.getElementsByClassName("enterTitle");
+	foodEnterTitle[0].innerHTML = "Enter Food";
+	updateChart();
+	//indexDB Update
+	indexSave = 1;
+	createDB();
+}
+
+function editFood(mFood){
+	if (editCheck == 1){
+		alert("Food Edit in Progress");
+		return;
+	}
+	//Grab values from input
+	var titleInput = document.getElementById("foodTitle");
+	var priceInput = document.getElementById("foodPrice");
+	var desiredUnitInput = document.getElementById("desiredUnit");
+	var currentUnitInput = document.getElementById("currentUnit");
+	var quantityInput = document.getElementById("foodQuantity");
+	
+	
+	titleInput.value = mFood.title;
+	priceInput.value = mFood.price;
+	desiredUnitInput.value = mFood.desiredUnit;
+	currentUnitInput.value = mFood.currentUnit;
+	quantityInput.value = mFood.quantity;
+	
+	//Food Enter Title
+	var foodEnterTitle = document.getElementsByClassName("enterTitle");
+	foodEnterTitle[0].innerHTML = "Edit "+ mFood.title;
+	
+	//Set Edit Check On and food ID to be Edited
+	editCheck = 1;
+	editId = mFood.id;
+	previousSlider = mFood.slider;
+}
+
+function deleteFood(mFood){
+	
+	if (editCheck == 1){
+		alert("Food Edit in Progress");
+		return;
+	}
+
+	//Remove Object from Array
+	food = food.slice(0,mFood.id).concat(food.slice(mFood.id+1,food.length));
+	
+	
+	//Update ids
+	for(i=0;i<food.length;i++){
+		food[i].id = i;
+	}
+	lastFoodId = food.length -1;
+	
+	//Refresh Screen
+	while (divList.firstChild) {
+		divList.removeChild(divList.firstChild);
+	}
+	initialLoad();
+	updateChart();
+	//indexDB Update
+	indexSave = 1;
+	createDB();
+}
+
+function foodLoader(mFood){
+	
+	var divListItem = document.createElement("div");
+	var divLeft = document.createElement("div");
+	var divRight = document.createElement("div");
+	var divRighter = document.createElement("div");
+	
+	divListItem.className = "listItem";
+	divLeft.className = "column";
+	divRight.className = "column";
+	divRighter.className = "columnB";
+	
+	//Title
+	var title= document.createElement("label");
+	title.className = "title"
+	title.innerHTML = mFood.title;
+	divLeft.appendChild(title);
+	
+	//Rate per Unit
+	var rateString = "$"+round(mFood.rate,4)+" per "+mFood.desiredUnit;
+	var rate = document.createElement("label");
+	rate.className = "rate";
+	rate.innerHTML = rateString;
+	divLeft.appendChild(rate);
+	
+	//Quantity
+	var quantityString = "Limit: "+round(mFood.slider/mFood.rate/100,3) + " "+mFood.desiredUnit;
+	var quantity = document.createElement("label");
+	quantity.className = "quantity";
+	quantity.innerHTML = quantityString;
+	divRight.appendChild(quantity);
+	
+	//Cost
+	var costString = "Budget: $"+mFood.slider/100;
+	var cost = document.createElement("label");
+	cost.className = "cost";
+	cost.innerHTML = costString;
+	divRight.appendChild(cost);
+	
+	
+	//Create Edit Button
+	var editButton = document.createElement("button");
+	editButton.innerHTML = "Edit";
+	editButton.className = "myButton";
+	
+	editButton.onclick = function(){
+		editFood(mFood);
+	}
+	divRighter.appendChild(editButton);
+	
+	//Return Button
+	breaker = document.createElement("br");
+	divRighter.appendChild(breaker);
+	
+	//Create Delete Button
+	var deleteButton = document.createElement("button");
+	deleteButton.innerHTML = "Delete";
+	deleteButton.className = "myButton";
+	
+	deleteButton.onclick = function(){
+		deleteFood(mFood);
+	}
+	divRighter.appendChild(deleteButton);
+
+	//Create Slider
+	var change = 0;
+	var slidecontainer = document.createElement("div");
+	slidecontainer.className = "slidecontainer"
+	var slider = document.createElement("input");
+	slider.type="range";
+	slider.className = "slider";
+	slider.min = 0;
+	slider.max = SLIDE_MAX;
+	slider.step = 1;
+	slider.value = mFood.slider;
+	
+	slider.oninput = function() {
+		if(editCheck==1){
+			alert("Edit in Progress");
+			this.value = mFood.slider;
+			return;
+		}
+		//Have Values Change
+		if(this.value>=sliderLimit+parseInt(mFood.slider) && sliderLimit>0){
+			this.value=sliderLimit+parseInt(mFood.slider);
+		}else if(this.value>=parseInt(mFood.slider) && sliderLimit==0){
+			this.value=parseInt(mFood.slider);
+		}
+		cost.innerHTML = "Budget: $"+this.value/100;
+		quantity.innerHTML = "Limit: "+round(this.value/mFood.rate/100,3) + " "+mFood.desiredUnit;
+		chartSlider(mFood,this.value);
+		
+	}
+	slider.onchange = function(){
+		mFood.slider = this.value;
+		updateSlider(mFood);
+		//Update indexDB
+		indexSave = 1;
+		createDB();
+		
+	}
+	//slidecontainer.appendChild("0");
+	slidecontainer.appendChild(slider);
+	
+	
+	//Append to list item
+	divListItem.appendChild(divLeft);
+	divListItem.appendChild(divRight);
+	divListItem.appendChild(divRighter);
+	divListItem.appendChild(slidecontainer);
+	//Append to list
+	divList.appendChild(divListItem);
+
+}
+
+function rater(mDesiredUnit,mCurrentUnit,mPrice,mQuantity){
+	
+	var rate = 0;
+	var m=0;
+	var n=0;
+	var k=0;
+	
+	//Combination where we can't convert
+	if(mCurrentUnit =="unit"){
+		mDesiredUnit = mCurrentUnit;
+		rate = mPrice/mQuantity;
+		return[rate,mDesiredUnit];
+	}if(mCurrentUnit!="unit" && mDesiredUnit=="unit"){
+		//TODO ADD THIS TO VALIDATION
+		
+	} 
+	//Weight
+	if((mCurrentUnit == "kg" || mCurrentUnit == "g" || mCurrentUnit == "lb")&&(mDesiredUnit == "kg" || mDesiredUnit == "g" || mDesiredUnit == "lb") ){
+		
+		if(mCurrentUnit == "kg"){
+			//kg/g
+			m = .001;
+			
+		}else if(mCurrentUnit == "g"){
+			//g/g
+			m = 1;
+		}else if(mCurrentUnit == "lb"){
+			//lb/g
+			m=0.00220462;
+		}
+		if(mDesiredUnit == "kg"){
+			//kg/g
+			n = .001;
+			
+		}else if(mDesiredUnit == "g"){
+			//g/g
+			n = 1;
+		}else if(mDesiredUnit == "lb"){
+			//lb/g
+			n=0.00220462;
+		}
+		rate = m/n*mPrice/mQuantity;
+		return [rate,mDesiredUnit]
+		
+	}else if((mCurrentUnit == "ml" || mCurrentUnit == "L" || mCurrentUnit == "oz")&&(mDesiredUnit == "ml" || mDesiredUnit == "L" || mDesiredUnit == "oz") ){
+		if(mCurrentUnit == "ml"){
+			//ml/ml
+			m = 1;
+			
+		}else if(mCurrentUnit == "L"){
+			//L/ml
+			m = .001;
+		}else if(mCurrentUnit == "oz"){
+			//oz/ml
+			m=0.033814;
+		}
+		if(mDesiredUnit == "ml"){
+			//ml/ml
+			n = 1;
+			
+		}else if(mDesiredUnit == "L"){
+			//L/ml
+			n = .001;
+		}else if(mDesiredUnit == "oz"){
+			//oz/ml
+			n=0.033814;
+		}
+		rate = m/n*mPrice/mQuantity;
+		return [rate,mDesiredUnit]
+	}
+	
+		
+	return [-1,-1];
+	
+}
+
+function validate(mTitleInput,mPriceInput,mQuantity,mDesiredUnit,mCurrentUnit){
+	
+	if (mTitleInput.value == ""){
+		alert("Please Enter a Food Title");
+		mTitleInput.focus();
+		return false;
+	}else if (mPriceInput.value == ""){
+		alert("Please Enter a Food Price");
+		mPriceInput.focus();
+		return false;
+	}else if (mQuantity.value == ""){
+		alert("Please Enter a Food Quantity");
+		mQuantity.focus();
+		return false;
+	}else if(mCurrentUnit.value=="unit" && mDesiredUnit.value!="unit"){
+		alert("Cannot convert between "+mCurrentUnit.value+" and "+mDesiredUnit.value);
+		mDesiredUnit.focus();
+		return false;
+	}else if((mCurrentUnit.value == "ml" || mCurrentUnit.value == "L" || mCurrentUnit.value == "oz")&&(mDesiredUnit.value != "ml" && mDesiredUnit.value != "L" && mDesiredUnit.value != "oz")) {
+		alert("Cannot convert between "+mCurrentUnit.value+" and "+mDesiredUnit.value);
+		mDesiredUnit.focus();
+		return false;
+	}else if((mCurrentUnit.value == "kg" || mCurrentUnit.value == "g" || mCurrentUnit.value == "lb")&&(mDesiredUnit.value != "kg" && mDesiredUnit.value != "g" && mDesiredUnit.value != "lb")) {
+		alert("Cannot convert between "+mCurrentUnit.value+" and "+mDesiredUnit.value);
+		mDesiredUnit.focus();
+		return false;
+	}
+		
+	
+	return true;
+	
+}
+
+function chartSlider(mFood,slideValue){
+	var changeSlider = slideValue - mFood.slider;
+	var limitSlider = sliderLimit - changeSlider;
+	chart.data.datasets[0].data[mFood.id] = slideValue/100;
+	chart.data.datasets[0].data[food.length] = limitSlider/100;
+	chart.update();
+	
+}
+
+function updateChart(){
+	chartLabels = [];
+	chartColors = [];
+	chartData = [];
+	c = 0;
+	k = 1;
+	for(i=0;i<food.length;i++){
+		chartLabels.push(food[i].title);
+		chartColors.push(colorsList[i-c]);
+		chartData.push(food[i].slider/100);
+		
+		if(i==k*colorsList.length-1){
+			c = k*colorsList.length;
+			k = k + 1;
+		}
+	}
+	//chartLabels.push("Remaining");
+	chartColors.push('rgb(255,255,255)');
+	chartData.push(sliderLimit/100);
+	
+	chart.data.datasets[0].data = chartData;
+	chart.data.labels = chartLabels;
+	chart.data.datasets[0].backgroundColor = chartColors;
+	
+	chart.update();
+	
+}
+
+function dbSave(){
+	console.log("dbSave");
+	// Open (or create) the database
+	open = indexedDB.open("MyDatabase", 1);
+	
+	// Create the schema
+	open.onupgradeneeded = function() {
+    var db = save.result;
+    var store = db.createObjectStore("MyObjectStore", {keyPath: "id"});
+	};
+	
+	open.onsuccess = function(){
+	//Start a new transaction
+		var db = open.result;
+		var tx = db.transaction("MyObjectStore","readwrite");
+		var store = tx.objectStore("MyObjectStore");
+		console.log("we are here");
+		store.put({
+				id:0,
+				title:"Apples",
+				price:7.99, 
+				currentUnit:"lb",
+				desiredUnit:"kg",
+				slider:0,
+				quantity:3,
+				rate:9.546
+			});
+		//for(i=0;i<food.length;i++){
+		//	store.put(food[i]);
+		//}
+		tx.oncomplete = function(){
+			db.close();
+		}
+	}
+}
+
+</script>
+</body>
+</html>
